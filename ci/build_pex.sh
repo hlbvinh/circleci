@@ -22,9 +22,7 @@ cat subdependencies_requirements >> /tmp/requirements.txt
 #touch ~/.pex/build
 #ls -lah ~/.pex/build || true
 
-git clone -b legacy_py3.6 https://github.com/QUVA-Lab/e2cnn.git
-cd e2cnn
-sudo python setup.py install
+sudo apt install python3.7
 
 # cache for max 1 year
 # TODO once we have a lock file for the dependencies and subdependencies
