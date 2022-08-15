@@ -27,10 +27,8 @@ sed -e "/ambi_utils/c\ambi_utils" \
 # the content of CircleCI cache
 cat subdependencies_requirements >> /tmp/requirements.txt
 
-sudo find / -type f -name 31556926
-
 echo "### PEX BUILD DIR BEFORE BUILD ###"
-sudo ls -lah ~/.pex/build || true
+sudo ls -lah ./.pex/build || true
 
 # cache for max 1 year
 # TODO once we have a lock file for the dependencies and subdependencies
