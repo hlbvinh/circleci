@@ -18,14 +18,14 @@ sed -e "/ambi_utils/c\ambi_utils" \
 # the content of CircleCI cache
 cat subdependencies_requirements >> /tmp/requirements.txt
 
-#echo "### PEX BUILD DIR BEFORE BUILD ###"
-#mkdir ~/.pex/build
-#ls -lah ~/.pex/build || true
+echo "### PEX BUILD DIR BEFORE BUILD ###"
+touch ~/.pex/build
+ls -lah ~/.pex/build || true
 
 # cache for max 1 year
 # TODO once we have a lock file for the dependencies and subdependencies
 # we could use the --intransitive option
-pex -vvvv --cache-ttl 31556926 -r /tmp/requirements.txt -c skynet -o python.pex
+pex -vvvv --cache-ttl 31556926 . -r /tmp/requirements.txt -c skynet -o python.pex
 
 PEX_NAME="$(bash ci/get_pex_name.sh get_pex_name)"
 
