@@ -1,5 +1,6 @@
 git+ssh://git@github.com/ambilabs/ambi_utils.git@asyncio-plus#egg=ambi-utils
-python3.7.1
+future-annotations==1.0.0
+tokenize-rt==4.2.1
 aiomysql==0.0.21
 aredis==1.1.5
 boto3==1.16.1
