@@ -24,7 +24,7 @@ cat subdependencies_requirements >> /tmp/requirements.txt
 
 git clone -b legacy_py3.6 https://github.com/QUVA-Lab/e2cnn.git
 cd e2cnn
-python setup.py install
+sudo python setup.py install
 
 # cache for max 1 year
 # TODO once we have a lock file for the dependencies and subdependencies
