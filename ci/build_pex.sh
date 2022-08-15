@@ -9,14 +9,19 @@ fi
 
 sudo pip install --upgrade pip
 
+echo "### 1 ###"
 TORCH_VERSION=`cat requirements.txt | grep -Po '(?<=torch==).*'`
+
+echo "### 1 ###"
 PYTHON_VERSION=`cat tox.ini | grep -Po '(?<=basepython = python)[0-9]\.[0-9]' | tr -d .`
+
+echo "### 1 ###"
 sed -e "/ambi_utils/c\ambi_utils" \
     -e "/torch==/c$(echo https://download.pytorch.org/whl/cpu/torch-${TORCH_VERSION}%2Bcpu-cp${PYTHON_VERSION}-cp${PYTHON_VERSION}m-linux_x86_64.whl)" \
     requirements.txt > /tmp/requirements.txt
 
-# for now we fix all dependencies to make sure that pex building is reproduceable and not influenced
-# the content of CircleCI cache
+echo "### 1 ###"
+
 cat subdependencies_requirements >> /tmp/requirements.txt
 
 #echo "### PEX BUILD DIR BEFORE BUILD ###"
