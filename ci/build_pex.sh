@@ -25,7 +25,7 @@ sed -e "/ambi_utils/c\ambi_utils" \
 
 # for now we fix all dependencies to make sure that pex building is reproduceable and not influenced
 # the content of CircleCI cache
-cat subdependencies_requirements >> /tmp/requirements.txt
+#cat subdependencies_requirements >> /tmp/requirements.txt
 
 cat /tmp/requirements.txt
 echo "### PEX BUILD DIR BEFORE BUILD ###"
@@ -34,7 +34,7 @@ sudo ls -lah /home/buildd/.pex/build || true
 # cache for max 1 year
 # TODO once we have a lock file for the dependencies and subdependencies
 # we could use the --intransitive option
-pex pex -c skynet -o python.pex --disable-cache
+pex -vvvv --cache-ttl 31556926 . -r /tmp/requirements.txt -c skynet -o python.pex 
 
 PEX_NAME="$(bash ci/get_pex_name.sh get_pex_name)"
 
