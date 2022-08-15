@@ -1,0 +1,9 @@
+[html]
+directory = test_reports/html
+
+[xml]
+output = test_reports/coverage.xml
+
+[report]
+skip_covered = True
+sort = Cover

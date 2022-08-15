@@ -1,0 +1,128 @@
+forecast:
+  api: https://api.darksky.net/forecast
+  key: KEY
+
+mongo:
+  production:
+    db: db
+    host: 127.0.0.1
+    password: PASSWORD
+    port: 2701
+    user: prediction
+
+cassandra:
+  production:
+    host: CASSANDRA_IP
+    port: 9042
+    username: viewer
+    password: PASSWORD
+  keyspace: sensordata
+
+mysql_weather:
+  host: db.ambiclimate.com
+  passwd: PASSWORD
+  port: 3306
+  user: weather_api
+
+rest:
+  host: https://rest.ambiclimate.com
+  port: 8877
+  token: TOKEN
+
+comfort_service:
+  ip: 0.0.0.0
+  port: 9000
+
+analytics_service:
+  ip: 0.0.0.0
+  port: 9001
+
+disaggregation_service:
+  ip: 0.0.0.0
+  port: 9002
+
+notification_service:
+  ip: NOTIFICATION_SERVICE_IP
+  port: 9990
+
+prediction_services:
+  climate_model:
+    ip: 127.0.0.1
+    port: 9880
+  mode_model:
+    ip: 127.0.0.1
+    port: 9881
+  user_model:
+    ip: 127.0.0.1
+    port: 9882
+  comfort_service:
+    ip: 127.0.0.1
+    port: 9884
+event_service:
+  ip: EVENT_SERVICE_IP
+  port: 12346
+status_monitor:
+  ip: 127.0.0.1
+  port: 8080
+
+control_service:
+  ip: 127.0.0.1
+  port: 9886
+
+control_worker_service:
+  ip: 127.0.0.1
+  port: 9887
+
+task_redis:
+  host: REDIS_TASK_HOST
+  recipient: somebody@ambiclimate.com
+
+airflow:
+  smtp_user: SMTP_USER
+  smtp_password: SMTP_PASSWORD
+
+logging:
+  control:
+    backup_count: 7
+  prediction_service_climate:
+    backup_count: 1
+  prediction_service_comfort:
+    backup_count: 1
+  prediction_service_mode:
+    backup_count: 1
+  prediction_service_user:
+    backup_count: 1
+  default:
+    backup_count: 14
+
+smtp:
+  server: smtp.gmail.com
+  port: 587
+  username: beta@ambiclimate.com
+  password: PASSWORD
+
+failover:
+  host: 10.66.89.157
+  port: 10001
+
+alert_emails:
+  - martin@ambiclimate.com
+  - mathis@ambiclimate.com
+
+sentry:
+  dsn: https://XXX:YYY@sentry.io/ZZZ
+
+model_store:
+  bucket: MODEL_STORE_BUCKET
+  encryption_key: FERNET_KEY
+
+slack:
+  production:
+    webhook_url: URL
+  staging:
+    webhook_url: URL
+
+
+forwarded_redis:
+  port: 6378
+  password: PASSWORD
