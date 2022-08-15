@@ -34,7 +34,7 @@ cat subdependencies_requirements >> /tmp/requirements.txt
 # TODO once we have a lock file for the dependencies and subdependencies
 # we could use the --intransitive option
 echo "###pex build###"
-pex -vvvv -r /tmp/requirements.txt -c skynet -o python.pex
+pex -vvvv -r ./ambi_utils/requirements.txt -c skynet -o python.pex
 
 echo "### 2 ###"
 PEX_NAME="$(bash ci/get_pex_name.sh get_pex_name)"
