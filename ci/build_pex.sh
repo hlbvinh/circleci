@@ -23,8 +23,7 @@ cat subdependencies_requirements >> /tmp/requirements.txt
 #ls -lah ~/.pex/build || true
 
 
-sudo apt update
-sudo apt install python-setuptools-scm
+pip install setuptools_scm
 
 
 # cache for max 1 year
