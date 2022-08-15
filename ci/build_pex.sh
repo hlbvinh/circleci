@@ -22,6 +22,8 @@ cat subdependencies_requirements >> /tmp/requirements.txt
 #touch ~/.pex/build
 #ls -lah ~/.pex/build || true
 
+pip install future-annotations
+
 # cache for max 1 year
 # TODO once we have a lock file for the dependencies and subdependencies
 # we could use the --intransitive option
