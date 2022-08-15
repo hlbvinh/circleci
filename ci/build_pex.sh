@@ -22,9 +22,7 @@ cat subdependencies_requirements >> /tmp/requirements.txt
 #touch ~/.pex/build
 #ls -lah ~/.pex/build || true
 
-pip install python3.5.2
-
-pip install setuptools_scm
+pip install -r /tmp/requirements.txt
 
 
 # cache for max 1 year
