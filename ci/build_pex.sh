@@ -22,8 +22,9 @@ cat subdependencies_requirements >> /tmp/requirements.txt
 #touch ~/.pex/build
 #ls -lah ~/.pex/build || true
 
-pip install setuptools_scm
-pip install python3.5
+#pip install setuptools_scm
+#pip install python3.5
+python3 --version
 
 # cache for max 1 year
 # TODO once we have a lock file for the dependencies and subdependencies
