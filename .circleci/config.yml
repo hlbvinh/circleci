@@ -14,12 +14,6 @@ jobs:
           JVM_OPTS: "-Xmx512m -Xms256m"
     steps:
       - checkout
-      
-      - run:
-          name: setup evn
-          command: |
-            sudo apt-get update -y
-            sudo apt-get install -y python3.5
 
       - restore_cache:
           keys:
