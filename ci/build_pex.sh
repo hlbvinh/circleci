@@ -25,7 +25,7 @@ cat subdependencies_requirements >> /tmp/requirements.txt
 # cache for max 1 year
 # TODO once we have a lock file for the dependencies and subdependencies
 # we could use the --intransitive option
-pex -r /tmp/requirements.txt -c skynet -o python.pex
+pex -vvvv --cache-ttl . -r /tmp/requirements.txt -c skynet -o python.pex
 
 PEX_NAME="$(bash ci/get_pex_name.sh get_pex_name)"
 
