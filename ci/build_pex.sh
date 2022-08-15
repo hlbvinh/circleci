@@ -6,17 +6,6 @@ if [ -f /.dockerenv ]; then
     sudo pip install $(cat requirements.txt | grep 'pex==')
 fi
 
-# pex doesn't support git resolvables
-if [ -z ${GITHUB_TOKEN+x} ]; then
-    echo "using github via ssh"
-    GITURL=git@github.com:ambilabs/ambi_utils
-else
-    echo "using GITHUB_TOKEN"
-    GITURL=https://$GITHUB_TOKEN@github.com/ambilabs/ambi_utils.git
-fi
-
-git clone $GITURL -b asyncio-plus ambi_utils || \
-    echo "didn't clone ambi_utils, remove ./ambi_utils if you want to clone again"
 TORCH_VERSION=`cat requirements.txt | grep -Po '(?<=torch==).*'`
 PYTHON_VERSION=`cat tox.ini | grep -Po '(?<=basepython = python)[0-9]\.[0-9]' | tr -d .`
 sed -e "/ambi_utils/c\ambi_utils" \
