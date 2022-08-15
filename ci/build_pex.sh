@@ -4,7 +4,7 @@ set -e
 # update build dependencies inside docker only
 if [ -f /.dockerenv ]; then
     sudo pip install $(cat requirements.txt | grep 'pex==')
-    pip install future-annotations
+    sudo pip install future-annotations
 fi
 
 sudo pip install --upgrade pip
