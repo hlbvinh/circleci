@@ -27,7 +27,7 @@ sed -e "/ambi_utils/c\ambi_utils" \
 # the content of CircleCI cache
 cat subdependencies_requirements >> /tmp/requirements.txt
 
-ls /tmp/requirements.txt
+cat /tmp/requirements.txt
 echo "### PEX BUILD DIR BEFORE BUILD ###"
 sudo ls -lah /home/buildd/.pex/build || true
 
