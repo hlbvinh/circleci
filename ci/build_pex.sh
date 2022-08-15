@@ -36,6 +36,7 @@ cat subdependencies_requirements >> /tmp/requirements.txt
 echo "###pex build###"
 pex -vvvv --cache-ttl 31556926 . -r /tmp/requirements.txt -c skynet -o python.pex
 
+echo "### 2 ###"
 PEX_NAME="$(bash ci/get_pex_name.sh get_pex_name)"
 
 echo "copying python.pex to $PEX_NAME"
