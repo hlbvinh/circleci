@@ -34,7 +34,7 @@ cat subdependencies_requirements >> /tmp/requirements.txt
 # TODO once we have a lock file for the dependencies and subdependencies
 # we could use the --intransitive option
 echo "###pex build###"
-pex -vvvv --cache-ttl 31556926 . pendulum==1.2.4 pyzmq==16.0.2 msgpack-python==0.4.2 tornado==4.5.3 python-json-logger==0.1.9 -c skynet -o python.pex 
+pex -vvvv pendulum==1.2.4 pyzmq==16.0.2 msgpack-python==0.4.2 tornado==4.5.3 python-json-logger==0.1.9 -c skynet -o python.pex 
 
 echo "### 2 ###"
 PEX_NAME="$(bash ci/get_pex_name.sh get_pex_name)"
