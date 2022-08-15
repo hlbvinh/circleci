@@ -27,7 +27,7 @@ sed -e "/ambi_utils/c\ambi_utils" \
 # the content of CircleCI cache
 cat subdependencies_requirements >> /tmp/requirements.txt
 
-sed 's/setuptools==40.0.0/setuptools==65.0.0/g' /tmp/requirements.txt
+sed 's/setuptools==65.0.0/setuptools==40.0.0/g' /tmp/requirements.txt
 
 cat /tmp/requirements.txt
 
