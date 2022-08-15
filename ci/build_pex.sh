@@ -27,8 +27,6 @@ sed -e "/ambi_utils/c\ambi_utils" \
 # the content of CircleCI cache
 cat subdependencies_requirements >> /tmp/requirements.txt
 
-cat "setuptools==65.0.0" >> /tmp/requirements.txt
-
 cat /tmp/requirements.txt
 
 echo "### PEX BUILD DIR BEFORE BUILD ###"
