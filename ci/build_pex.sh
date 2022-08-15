@@ -6,6 +6,8 @@ if [ -f /.dockerenv ]; then
     sudo pip install $(cat requirements.txt | grep 'pex==')
 fi
 
+sudo pip install --upgrade pip
+
 TORCH_VERSION=`cat requirements.txt | grep -Po '(?<=torch==).*'`
 PYTHON_VERSION=`cat tox.ini | grep -Po '(?<=basepython = python)[0-9]\.[0-9]' | tr -d .`
 sed -e "/ambi_utils/c\ambi_utils" \
