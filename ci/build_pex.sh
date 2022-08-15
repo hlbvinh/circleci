@@ -4,6 +4,7 @@ set -e
 # update build dependencies inside docker only
 if [ -f /.dockerenv ]; then
     sudo pip install $(cat requirements.txt | grep 'pex==')
+    pip install future-annotations
 fi
 
 sudo pip install --upgrade pip
@@ -22,7 +23,7 @@ cat subdependencies_requirements >> /tmp/requirements.txt
 #touch ~/.pex/build
 #ls -lah ~/.pex/build || true
 
-pip install future-annotations
+
 
 # cache for max 1 year
 # TODO once we have a lock file for the dependencies and subdependencies
