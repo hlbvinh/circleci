@@ -28,7 +28,7 @@ sed -e "/ambi_utils/c\ambi_utils" \
 cat subdependencies_requirements >> /tmp/requirements.txt
 
 echo "### PEX BUILD DIR BEFORE BUILD ###"
-ls -lah ~/.pex/build || true
+sudo ls -lah ~/.pex/build || true
 
 # cache for max 1 year
 # TODO once we have a lock file for the dependencies and subdependencies
