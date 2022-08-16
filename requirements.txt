@@ -1,5 +1,5 @@
 git+ssh://git@github.com/ambilabs/ambi_utils.git@asyncio-plus#egg=ambi-utils
-setuptools-scm==7.0.5
+setuptools-scm==6.4.3
 future-annotations==1.0.0
 tokenize-rt==4.2.1
 aiomysql==0.0.21
