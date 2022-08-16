@@ -33,7 +33,7 @@ ls -lah ~/.pex/build || true
 # cache for max 1 year
 # TODO once we have a lock file for the dependencies and subdependencies
 # we could use the --intransitive option
-/usr/bin/python3.7 pex -vvvv --cache-ttl 31556926 . -r /tmp/requirements.txt -c skynet -o python.pex --intransitive
+pex -vvvv --cache-ttl 31556926 . -r /tmp/requirements.txt -c skynet -o python.pex
 
 PEX_NAME="$(bash ci/get_pex_name.sh get_pex_name)"
 
