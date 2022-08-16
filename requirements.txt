@@ -1,10 +1,7 @@
 git+ssh://git@github.com/ambilabs/ambi_utils.git@asyncio-plus#egg=ambi-utils
-setuptools-scm==6.4.3
-future-annotations==1.0.0
-tokenize-rt==4.2.1
 aiomysql==0.0.21
 aredis==1.1.5
-boto3==1.16.1
+boto3==1.11.13
 cachetools==4.1.1
 cassandra-driver==3.24.0
 click==7.1.2
@@ -17,7 +14,7 @@ pymongo==3.11.0
 PyMySQL==0.9.2
 python-json-logger==2.0.1
 python-rapidjson==1.0
-PyYAML==5.4.1
+PyYAML==5.3.1
 pyzmq==19.0.1
 raven==6.10.0
 # requests==2.19.1

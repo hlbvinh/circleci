@@ -321,98 +321,98 @@ def main(
     ]:
         X, y = fetch()
 
-        if task == "train":
-            model.fit(X, y)
-            weights = mod.get_mini_weights(model)
-            # TODO: summarized version of weights
-            log.debug(pprint.pformat(weights))
-            save(model)
+    if task == "train":
+        model.fit(X, y)
+        weights = mod.get_mini_weights(model)
+        # TODO: summarized version of weights
+        log.debug(pprint.pformat(weights))
+        save(model)
 
-        elif task == "grid_search":
-            #
-            # Doing a manual grid search here so that we can use the custom
-            # scoring function of the mode model.
-            #
-            results = []
-            param_grid = mode_model_util.ModeModelParameterGrid(mod.get_params())
-            cv, groups = get_cv_n_groups(
-                X, n_train, int(validation_interval), use_time_series_cv
-            )
-            for params in param_grid:
-                model.set_params(**params)
-                scores = model.score(
-                    X,
-                    y,
-                    score="accuracy",
-                    n_jobs=n_jobs,
-                    cv=cv,
-                    groups=groups,
-                    mode_selections=mode_selections,
-                )
-                scores = score_avg(scores, "accuracy")
-                scores["params"] = params["params"]
-                results.append(scores)
-            results = pd.DataFrame(results)
-            results = results.sort_values(by=["average_of_scores", "std_of_scores"])
-            results.to_pickle("scores.pkl")
-            print(results[["params", "average_of_scores", "std_of_scores"]])
-
-        elif task == "score":
-            cv, groups = get_cv_n_groups(
-                X, n_train, int(validation_interval), use_time_series_cv
-            )
+    elif task == "grid_search":
+        #
+        # Doing a manual grid search here so that we can use the custom
+        # scoring function of the mode model.
+        #
+        results = []
+        param_grid = mode_model_util.ModeModelParameterGrid(mod.get_params())
+        cv, groups = get_cv_n_groups(
+            X, n_train, int(validation_interval), use_time_series_cv
+        )
+        for params in param_grid:
+            model.set_params(**params)
             scores = model.score(
                 X,
                 y,
-                score=score,
+                score="accuracy",
                 n_jobs=n_jobs,
                 cv=cv,
                 groups=groups,
-                needs_confusion_matrix=needs_confusion_matrix,
                 mode_selections=mode_selections,
             )
-            pretty_print_score(scores)
+            scores = score_avg(scores, "accuracy")
+            scores["params"] = params["params"]
+            results.append(scores)
+        results = pd.DataFrame(results)
+        results = results.sort_values(by=["average_of_scores", "std_of_scores"])
+        results.to_pickle("scores.pkl")
+        print(results[["params", "average_of_scores", "std_of_scores"]])
 
-        elif task == "score_one":
-            mask = np.in1d(y, SCORE_ONE_MODES)
-            score_one = model._score(
-                X[mask],
-                y[mask],
-                SCORE_ONE_MODES,
-                sample_weights=mode_model.get_sample_weights(y[mask]),
-            )
-            pretty_print_score({SCORE_ONE_MODES: score_one})
+    elif task == "score":
+        cv, groups = get_cv_n_groups(
+            X, n_train, int(validation_interval), use_time_series_cv
+        )
+        scores = model.score(
+            X,
+            y,
+            score=score,
+            n_jobs=n_jobs,
+            cv=cv,
+            groups=groups,
+            needs_confusion_matrix=needs_confusion_matrix,
+            mode_selections=mode_selections,
+        )
+        pretty_print_score(scores)
 
-        elif task == "score_fake_data":
-            # Sooner or later, when we have more user,
-            # or when weather changes for some user,
+    elif task == "score_one":
+        mask = np.in1d(y, SCORE_ONE_MODES)
+        score_one = model._score(
+            X[mask],
+            y[mask],
+            SCORE_ONE_MODES,
+            sample_weights=mode_model.get_sample_weights(y[mask]),
+        )
+        pretty_print_score({SCORE_ONE_MODES: score_one})
 
-            # we may have contain users who targets or preferences
-            # appeared to be significantly different.
+    elif task == "score_fake_data":
+        # Sooner or later, when we have more user,
+        # or when weather changes for some user,
 
-            # This task help us see how well a model that trained
-            # by samples that contain minority different samples to
-            # make prediction on these samples.
-            custom_scorer = make_scorer(mode_model.mode_accuracy_score)
-            X_train, y_train, X_test, y_test = get_fake_dataset(
-                X,
-                y,
-                source_samples_size=SOURCE_SIZE,
-                train_samples_size=TRAIN_SIZE,
-                test_samples_size=TEST_SIZE,
-                change_map=CHANGE_MAP,
-                fake_name=FAKE_NAME,
-            )
-            model.fit(X_train, y_train)
-            y_test = np.array(y_test)
-            X_test = model.get_features(X_test)
-            columns = mode_model.TARGET_FEATURE_COLUMNS
-            scores = {c: [] for c in columns}
-            for column in columns:
-                drop = [c for c in columns if c != column]
-                X_t = X_test.drop(drop, axis=1)
-                scores[column] = custom_scorer(model, X_t, y_test)
-            print(scores)
+        # we may have contain users who targets or preferences
+        # appeared to be significantly different.
+
+        # This task help us see how well a model that trained
+        # by samples that contain minority different samples to
+        # make prediction on these samples.
+        custom_scorer = make_scorer(mode_model.mode_accuracy_score)
+        X_train, y_train, X_test, y_test = get_fake_dataset(
+            X,
+            y,
+            source_samples_size=SOURCE_SIZE,
+            train_samples_size=TRAIN_SIZE,
+            test_samples_size=TEST_SIZE,
+            change_map=CHANGE_MAP,
+            fake_name=FAKE_NAME,
+        )
+        model.fit(X_train, y_train)
+        y_test = np.array(y_test)
+        X_test = model.get_features(X_test)
+        columns = mode_model.TARGET_FEATURE_COLUMNS
+        scores = {c: [] for c in columns}
+        for column in columns:
+            drop = [c for c in columns if c != column]
+            X_t = X_test.drop(drop, axis=1)
+            scores[column] = custom_scorer(model, X_t, y_test)
+        print(scores)
 
 
 if __name__ == "__main__":

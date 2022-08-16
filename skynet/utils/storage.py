@@ -6,7 +6,7 @@ import gc
 import os
 import pickle
 import platform
-from hashlib import sha256
+from hashlib import md5
 from typing import Any, Dict, Optional, Union
 
 import boto3
@@ -56,7 +56,7 @@ def get_python_major_minor():
 def encode(obj):
     try:
         data = pickle.dumps(obj, -1)
-        checksum = sha256(data).hexdigest()[:6]
+        checksum = md5(data).hexdigest()[:6]
         log.info(f"encoded data checksum {checksum}")
         return data
 

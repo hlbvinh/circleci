@@ -169,10 +169,11 @@ def fetch_mae_score_per_column_for_each_sample_len(
     mae_per_column_filenames = [
         filename
         for filename in all_files
-        if f"{model_type}_model_mae_score_per_{mae_per_column}_for_sample_number_" in filename
+        if f"{model_type}_model_mae_score_per_{mae_per_column}_for_sample_number_"
+        in filename
     ]
 
-    if not mae_per_column_filenames:
+    if mae_per_column_filenames is None:
         log.info("No files found.")
         exit(0)
 
