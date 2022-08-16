@@ -16,8 +16,6 @@ setup(
     author_email="mathis@ambiclimate.com",
     packages=packages,
     entry_points={"console_scripts": ["skynet = scripts.__main__:main"]},
-    setup_requires=["setuptools_scm"],
-    use_scm_version=True,
     data_files=[("airflow/dags", glob.glob("airflow/dags/*.py"))],
     include_package_data=True,
 )
