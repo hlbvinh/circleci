@@ -391,39 +391,29 @@ def query_appliance_states_from_device(
     columns = ", ".join(["A.{}".format(c) for c in columns])
     sql = """
     (
-        SELECT
-            {columns}
-        FROM
-            ApplianceState A
-        JOIN
-            DeviceApplianceList D
-        ON
-            A.appliance_id = D.appliance_id
-        WHERE
-            D.device_id = %(device_id)s
-        AND
-            A.created_on < %(start)s
-        ORDER BY
-            created_on DESC
+        SELECT {columns}
+        FROM ApplianceState A
+        WHERE A.appliance_id = (
+            SELECT appliance_id
+            FROM DeviceApplianceList
+            WHERE device_id = %(device_id)s
+            LIMIT 1
+        )
+        AND A.created_on < %(start)s
+        ORDER BY A.created_on DESC
         LIMIT 1
     ) UNION (
-        SELECT
-            {columns}
-        FROM
-            ApplianceState A
-        JOIN
-            DeviceApplianceList D
-        ON
-            A.appliance_id = D.appliance_id
-        WHERE
-            D.device_id = %(device_id)s
-        AND
-            A.created_on > %(start)s
-        AND
-            A.created_on < %(end)s
-        GROUP BY
-            A.appliance_state_id
+        SELECT {columns}
+        FROM ApplianceState A
+        WHERE A.appliance_id = (
+            SELECT appliance_id
+            FROM DeviceApplianceList
+            WHERE device_id = %(device_id)s
+            LIMIT 1
         )
+        AND A.created_on > %(start)s
+        AND A.created_on < %(end)s
+    )		
     ORDER BY
         appliance_state_id
     """.format(
